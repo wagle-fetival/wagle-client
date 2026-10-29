@@ -1,0 +1,5 @@
+{
+  // 팀원이 이 프로젝트를 VS Code로 열면
+  // "추천 확장 프로그램을 설치하시겠어요?" 알림을 띄워주는 목록
+  "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+}
