@@ -1,0 +1,2 @@
+# npm이 자동으로 만드는 파일이라 Prettier가 건드리지 않게 함
+package-lock.json
