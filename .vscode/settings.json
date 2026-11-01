@@ -1,0 +1,10 @@
+{
+  // 이 프로젝트에서는 기본 코드 정리 도구로 Prettier를 사용
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // 파일을 저장(Ctrl + S)할 때마다 자동으로 코드 모양 정리
+  "editor.formatOnSave": true,
+  // 저장할 때 ESLint가 자동으로 고칠 수 있는 문제(안 쓰는 import 정리 등)도 같이 고침
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}
