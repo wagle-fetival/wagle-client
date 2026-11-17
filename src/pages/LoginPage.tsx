@@ -6,16 +6,39 @@ import logoIcon from '../assets/logo-icon.svg'
 import logoText from '../assets/logo-text.svg'
 import Input from '../components/Input'
 
+// 에러 메시지 모양 (둘 다 없을 수도 있음)
+type LoginErrors = {
+  email?: string
+  password?: string
+}
+
+// 이메일 형식 검사 규칙 (글자@글자.글자)
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 function LoginPage() {
   const navigate = useNavigate()
 
-  // 입력값 저장 (useState: 값이 바뀌면 화면을 다시 그려줌)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState<LoginErrors>({})
 
-  // 로그인 버튼을 눌렀을 때
+  // 입력값 검사: 문제 없으면 true, 있으면 에러를 저장하고 false
+  const validate = () => {
+    const newErrors: LoginErrors = {}
+
+    if (!email) newErrors.email = '이메일을 입력해주세요'
+    else if (!EMAIL_REGEX.test(email)) newErrors.email = '올바르지 않은 이메일이에요'
+
+    if (!password) newErrors.password = '비밀번호를 입력해주세요'
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0 // 에러가 0개면 통과
+  }
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault() // form 기본 동작(페이지 새로고침) 막기
+    e.preventDefault()
+    if (!validate()) return // 검사 실패하면 여기서 멈춤
+
     // TODO: 백엔드 API 나오면 여기서 로그인 요청
     console.log('로그인 시도', { email, password })
   }
@@ -42,14 +65,18 @@ function LoginPage() {
       <div className="mt-6 w-full max-w-sm rounded-2xl bg-white p-8 shadow-md">
         <h1 className="text-center text-2xl font-bold text-brown-dark">로그인</h1>
 
-        {/* form: 엔터를 쳐도 로그인 버튼이 눌리게 해줌 */}
-        <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+        {/* noValidate: 브라우저 기본 경고창 끄고 우리 에러 메시지만 쓰기 */}
+        <form onSubmit={handleSubmit} noValidate className="mt-6 flex flex-col gap-4">
           <Input
             id="email"
             label="이메일"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)} // 입력할 때마다 email에 저장
+            error={errors.email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              setErrors((prev) => ({ ...prev, email: undefined })) // 다시 입력하면 에러 지우기
+            }}
           />
           <Input
             id="password"
@@ -57,10 +84,13 @@ function LoginPage() {
             type="password"
             placeholder="••••••"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            error={errors.password}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              setErrors((prev) => ({ ...prev, password: undefined }))
+            }}
           />
 
-          {/* type="submit": 누르면 form의 onSubmit 실행 */}
           <button
             type="submit"
             className="mt-2 w-full rounded-full bg-brown-dark py-2.5 text-sm font-bold text-white shadow"
@@ -72,7 +102,7 @@ function LoginPage() {
         {/* 구분선 */}
         <hr className="my-5 border-brown/40" />
 
-        {/* 회원가입 링크 (Link: 새로고침 없이 페이지 이동) */}
+        {/* 회원가입 링크 */}
         <p className="text-center text-sm text-brown-dark">
           회원이 아니신가요?{' '}
           <Link to="/signup" className="font-bold">
