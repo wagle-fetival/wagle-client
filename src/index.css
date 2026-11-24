@@ -1,5 +1,5 @@
 /* Tailwind의 모든 스타일을 불러오는 한 줄 */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* @theme: Tailwind에 우리 프로젝트만의 값을 추가하는 곳 */
 /* --color-이름 으로 적으면 bg-이름, text-이름, border-이름 클래스가 자동으로 생김 */
