@@ -1,1 +1,19 @@
+/* Tailwind의 모든 스타일을 불러오는 한 줄 */
 @import 'tailwindcss';
+
+/* @theme: Tailwind에 우리 프로젝트만의 값을 추가하는 곳 */
+/* --color-이름 으로 적으면 bg-이름, text-이름, border-이름 클래스가 자동으로 생김 */
+@theme {
+  /* 페이지 전체 배경 (가장 연한 크림색) */
+  --color-cream: #fff6e9;
+  /* 입력창 배경 (연한 베이지) */
+  --color-butter: #f7e6c6;
+  /* 뒤로가기 버튼 등 포인트 (와플 노란색) */
+  --color-honey: #f8c66d;
+  /* 갈색 (버튼, 강조) */
+  --color-brown: #8b5e3c;
+  /* 진한 갈색 (제목, 로그인 버튼, 진한 글자) */
+  --color-brown-dark: #5a3a24;
+  /* 에러 메시지 (팔레트에는 없지만 디자인의 빨간 에러 문구용) */
+  --color-error: #e5484d;
+}
