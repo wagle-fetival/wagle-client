@@ -21,7 +21,14 @@ function AuthLayout({ title, children }: AuthLayoutProps) {
         onClick={() => navigate(-1)}
         className="absolute left-6 top-6 flex items-center gap-1 rounded-full bg-honey px-4 py-2 text-sm font-semibold text-brown-dark shadow"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+        >
           <path d="M15 18l-6-6 6-6" />
         </svg>
         뒤로가기
